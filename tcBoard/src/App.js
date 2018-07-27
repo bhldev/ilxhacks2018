@@ -25,7 +25,8 @@ class App extends Component {
     // search('sprint', 'Cloud - Sprint 59', function (data) {   document.getElementById('search-results').innerHTML = data; });
     // jiraConnector.search('sprint', 'Cloud - Sprint 59', data => { console.log('got data'); this.displayData(data) })
     //jiraConnector.search('status', 'In Development', data => { console.log('got data'); this.displayData(data) })
-    jiraConnector.getInDevelopment(59, this.displayData);
+    // jiraConnector.getInDevelopment(59, this.displayData);
+    jiraConnector.getSprint(338, this.displayData);
   }
 
   displayData(data) {

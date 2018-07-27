@@ -23,6 +23,7 @@ export function subscribeToPush(pb) {
     getReadyForReview: getReadyForReview,
     getDone: getDone,
     getWillNotImplement: getWillNotImplement,
+    getSprint: getSprint,
     funcs: {},
   };
 
@@ -99,3 +100,8 @@ export function subscribeToPush(pb) {
     sendJiraRequest('NOTIMPLEMENT', getUrl2('Status', 'Will not implement', 'Sprint', 'Cloud - Sprint ' + sprint));  
   }
 
+  export function getSprint(sprintId, callback) {
+    var sprintIdFix = sprintId || 338
+    jiraConnector.funcs['DASHBOARD'] = callback;
+    sendJiraRequest('DASHBOARD', 'https://intelex.atlassian.net/rest/greenhopper/1.0/gadgets/sprints/health?rapidViewId=17&sprintId=' + sprintIdFix);
+  }
