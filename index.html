@@ -1,8 +1,8 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io('http://10.10.121.7:8080');
-  socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
+  socket.emit('test', { data: 'data' });
+  socket.on('test receive', function (data) {
+    console.log('received: ' + JSON.stringify(data));
   });
 </script>
