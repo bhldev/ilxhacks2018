@@ -7,6 +7,10 @@
 
   var socket = io('http://10.10.121.7:8080');
   socket.emit('test', { data: 'data' });
+  socket.emit('weather-request');
+  socket.on('weather-response', function(data) {
+    console.log(data);
+  });
   socket.on('test receive', function (data) {
     console.log('received: ' + JSON.stringify(data));
   });
@@ -41,7 +45,7 @@
   /* API CALLS */
 
   // THIS IS THE EXAMPLE
-  // GET URLS FROM 
+  // GET URLS FROM
   function getDashboard(callback) {
     funcs['DASHBOARD'] = callback;
     sendJiraRequest('DASHBOARD', 'https://intelex.atlassian.net/rest/api/2/dashboard/10116');
