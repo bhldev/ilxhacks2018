@@ -12,3 +12,21 @@ export const teamMembers = [
   { name: 'Sowmya', image: sowmya} ,
   { name: 'Lucy', image: woman} ,
 ];
+
+
+export const wfh = [
+  { name: 'Brian', image: brian } ,
+  { name: 'Chris', image: man} ,
+];
+
+export const ooo = [
+  { name: 'Ladi', image: man} ,
+  { name: 'Brinda', image: woman} ,
+  { name: 'Constantin', image: man} ,
+  { name: 'Sowmya', image: sowmya} ,
+  { name: 'Lucy', image: woman} ,
+];
+
+
+
+

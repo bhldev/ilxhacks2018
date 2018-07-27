@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Segment, Header, List, Image } from 'semantic-ui-react'
 import { teamMembers } from './constants';
+import { wfh } from './constants';
+import { ooo } from './constants';
 import './App.css';
 
 const StatusList = (props) => {
   const {
     title,
-    statusData,
+    datset,
   } = props;
   return (
     <div>
@@ -15,7 +17,7 @@ const StatusList = (props) => {
       </Header>
       <Segment attached >
         <List>
-          {teamMembers.map(member => {
+          {(datset === "wfh" ? wfh : ooo).map(member => {
             return (
               <List.Item style={{ paddingLeft: '1rem' }}>
                 <Image avatar src={member.image} />

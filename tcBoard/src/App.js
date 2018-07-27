@@ -114,10 +114,10 @@ const Body = (props) => {
       />
       <Grid.Row columns={2}>
         <Grid.Column>
-          <StatusList title="Work from home" />
+          <StatusList title="Work from home" datset="wfh" />
         </Grid.Column>
         <Grid.Column>
-          <StatusList title="Out of office" />
+          <StatusList title="Out of office" datset="ooo" />
         </Grid.Column>
       </Grid.Row>
       <Grid.Row columns={1}>
