@@ -10,9 +10,11 @@ const LOGIN = 'brian.lim@intelex.com';
 const PASSWORD = 'U7IAGCq6YNwgPcsH2u5DEDD9';
 
 function handler (req, res) {
-  fs.readFile(__dirname + '/index.html',
+  console.log(__dirname + req.url);
+  fs.readFile(__dirname + req.url,
   function (err, data) {
     if (err) {
+      console.log(err);
       res.writeHead(500);
       return res.end('Error loading index.html');
     }
