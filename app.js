@@ -3,7 +3,6 @@ var io = require('socket.io')(app);
 var fs = require('fs');
 var axios = require('axios');
 var circularjson = require('circular-json');
-var weather = require('./weather.js');
 
 app.listen(8080);
 
@@ -37,15 +36,10 @@ io.on('connection', function (socket) {
     axios.get(data.url, { auth: { username: LOGIN, password: PASSWORD } })
       .then(response => {
         console.log('response:' + circularjson.stringify(response));
-        socket.emit('jira-response', { type: data.type, data: response.data });
+        socket.emit('jira-response', { type: data.type, data: circularjson.stringify(response.data) });
       }).catch(error => {
         console.log('error:' + error);
       });
   });
 
-  socket.on('weather-request', function(data) {
-    // weather.getDowntownDailyForecast();
-    var dailyWeatherObj = {};
-    socket.emit('weather-response', dailyWeatherObj);
-  });
 });
