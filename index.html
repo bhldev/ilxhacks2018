@@ -1,3 +1,5 @@
+<div id='search-results'>
+</div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
 
@@ -20,12 +22,12 @@
       case 'DASHBOARD':
         var func = funcs['DASHBOARD'];
         console.log('dashboard:' + dataStr);
-        if (typeof(func) === 'function') { func(); };
+        if (typeof(func) === 'function') { func(dataStr); };
         break;
       case 'SEARCH':
-        var func = funcs['DASHBOARD'];
+        var func = funcs['SEARCH'];
         console.log('search:' + dataStr);
-        if (typeof(func) === 'function') { func(); };
+        if (typeof(func) === 'function') { func(dataStr); };
         break;
       default:
         console.log('data:' + dataStr);
@@ -51,6 +53,6 @@
     var url = 'https://intelex.atlassian.net/rest/api/2/search?jql="' + key + '"="' + value + '"';
     sendJiraRequest('SEARCH', 'https://intelex.atlassian.net/rest/api/2/dashboard/10116');
   }
-  search('summary', 'ampersand');
+  search('summary', 'ampersand', function (data) {   document.getElementById('search-results').innerHTML = data; });
 
 </script>
