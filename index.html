@@ -1,5 +1,5 @@
-<div id='search-results'>
-</div>
+<pre id='search-results'>
+</pre>
 <script src="/socket.io/socket.io.js"></script>
 <script>
 
@@ -17,7 +17,7 @@
 
   socket.on('jira-response', function (data) {
     console.log(data);
-    var dataStr = JSON.stringify(data);
+    var dataStr = JSON.stringify(data, null, 2);
     switch (data.type) {
       case 'DASHBOARD':
         var func = funcs['DASHBOARD'];
@@ -46,13 +46,13 @@
     funcs['DASHBOARD'] = callback;
     sendJiraRequest('DASHBOARD', 'https://intelex.atlassian.net/rest/api/2/dashboard/10116');
   }
-  getDashboard();
+  // getDashboard();
 
   function search(key, value, callback) {
     funcs['SEARCH'] = callback;
     var url = 'https://intelex.atlassian.net/rest/api/2/search?jql="' + key + '"="' + value + '"';
-    sendJiraRequest('SEARCH', 'https://intelex.atlassian.net/rest/api/2/dashboard/10116');
+    sendJiraRequest('SEARCH', url);
   }
-  search('summary', 'ampersand', function (data) {   document.getElementById('search-results').innerHTML = data; });
+  search('sprint', 'Cloud - Sprint 59', function (data) {   document.getElementById('search-results').innerHTML = data; });
 
 </script>
