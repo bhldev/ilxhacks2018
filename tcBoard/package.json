@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "rc522": "^0.2.0",
     "rc522-rfid-promise": "^16.0.1",
     "react": "^16.2.0",
