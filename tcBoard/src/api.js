@@ -33,14 +33,14 @@ export function subscribeToPush(pb) {
       var dataStr = JSON.stringify(data);
       console.log(data.type.toLowerCase() + dataStr);
       var func = jiraConnector.funcs[data.type.toUpperCase()];
-      if (typeof(func) === 'function') { func(); };
+      if (typeof(func) === 'function') { func(data); };
     });
   }
 
   const sendJiraRequest = (type, url, callback) => {
     socket.emit('jira-request', { type: type, url: encodeURI(url) });
   }
-  
+
   export const getUrl = (key, value) => {
     return 'https://intelex.atlassian.net/rest/api/2/search?jql="' + key + '"="' + value + '"';
   }
@@ -92,12 +92,12 @@ export function subscribeToPush(pb) {
 
   export function getDone(sprint, callback) {
     jiraConnector.funcs['DONE'] = callback;
-    sendJiraRequest('DONE', getUrl2('Status', 'Done', 'Sprint', 'Cloud - Sprint ' + sprint));  
+    sendJiraRequest('DONE', getUrl2('Status', 'Done', 'Sprint', 'Cloud - Sprint ' + sprint));
   }
 
   export function getWillNotImplement(sprint, callback) {
     jiraConnector.funcs['NOTIMPLEMENT'] = callback;
-    sendJiraRequest('NOTIMPLEMENT', getUrl2('Status', 'Will not implement', 'Sprint', 'Cloud - Sprint ' + sprint));  
+    sendJiraRequest('NOTIMPLEMENT', getUrl2('Status', 'Will not implement', 'Sprint', 'Cloud - Sprint ' + sprint));
   }
 
   export function getSprint(sprintId, callback) {
