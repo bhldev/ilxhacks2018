@@ -10,7 +10,7 @@ const Messages = (props) => {
       <Header attached='top' className="App-title" style={{ backgroundColor: 'lightgray' }}>
         Messages
       </Header>
-      <Header size='huge' color ='green' className="App-title">{props.message}</Header>
+      <Header size='huge' color={props.message === 'Working Hard' ? 'green' : 'red'} className="App-title">{props.message}</Header>
     </div>
   );
 }

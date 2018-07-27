@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   displayData(data) {
-    console.log(data);
+    //console.log(data);
   }
 
   render() {
