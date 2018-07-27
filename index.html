@@ -1,8 +1,43 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
+
+  /* SOCKET IO */
+
   var socket = io('http://10.10.121.7:8080');
   socket.emit('test', { data: 'data' });
   socket.on('test receive', function (data) {
     console.log('received: ' + JSON.stringify(data));
   });
+
+  /* JIRA FUNCTIONS */
+
+  socket.on('jira-response', function (data) {
+    console.log(data);
+    var dataStr = JSON.stringify(dataStr);
+    switch (data.type) {
+      case 'DASHBOARD':
+        console.log('dashboard:' + dataStr);
+        break;
+      default:
+        console.log('data:' + dataStr);
+    }
+  });
+
+  function sendJiraRequest(type, url) {
+    socket.emit('jira-request', { type: type, url: url });
+  }
+
+  /* API CALLS */
+
+  // THIS IS THE EXAMPLE
+  // GET URLS FROM 
+  function getDashboard() {
+    sendJiraRequest('DASHBOARD', 'https://intelex.atlassian.net/rest/api/2/dashboard/10116');
+  }
+  getDashboard();
+
+  function search(key, value) {
+    // TODO
+  }
+
 </script>
