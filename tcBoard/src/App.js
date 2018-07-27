@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Grid, Segment } from 'semantic-ui-react'
 import Header from './Header';
 import Weather from './Weather';
+import Messages from './Messages';
+import StatusList from './StatusList';
 import './App.css';
 import { subscribeToTimer, subscribeToLed, subscribeToPush, subscribeToJiraConnector, jiraConnector } from './api';
 //import Iframe from 'react-iframe';
@@ -31,45 +33,59 @@ class App extends Component {
   displayData(data) {
     console.log(data);
   }
-  
+
   render() {
     this.getData();
     return (
       <div className="App">
-        <Header />
+        <Header className="App-title" />
         <Body />
       </div>
     );
   }
 }
 
-const Body = () => (
-  <Grid divided='vertically'>
-    <Grid.Row columns={2}>
-      <Grid.Column>
-        <Segment className="App-segment">
-          <Weather />
+const Body = (props) => {
+  return (
+    <Grid divided='vertically'>
+      <Grid.Row columns={2}>
+        <Grid.Column>
+          <Segment className="App-segment">
+            <Weather />
+          </Segment>
+        </Grid.Column>
+        <Grid.Column>
+          <Segment className="App-segment App-title">
+            {new Date().toLocaleString()}
         </Segment>
-      </Grid.Column>
-      <Grid.Column>
-        <Segment className="App-segment">
-          {new Date().toLocaleString()}
-       </Segment>
-      </Grid.Column>
-    </Grid.Row>
+        </Grid.Column>
+      </Grid.Row>
 
-    <Grid.Row columns={3}>
-      <Grid.Column>
-        1
-      </Grid.Column>
-      <Grid.Column>
-        2
-      </Grid.Column>
-      <Grid.Column>
-        3
-      </Grid.Column>
-    </Grid.Row>
-  </Grid>
-);
+      <Grid.Row columns={2}>
+        <Grid.Column>
+          1
+        </Grid.Column>
+        <Grid.Column>
+          2
+        </Grid.Column>
+      </Grid.Row>
+
+      <Grid.Row columns={2}>
+        <Grid.Column>
+          <StatusList title="Work from home" />
+        </Grid.Column>
+        <Grid.Column>
+          <StatusList title="Out of office" />
+        </Grid.Column>
+      </Grid.Row>
+
+      <Grid.Row columns={1}>
+        <Grid.Column>
+          <Messages message="placeholder" />
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
+  )
+};
 
 export default App;

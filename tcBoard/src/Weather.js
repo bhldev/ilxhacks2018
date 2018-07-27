@@ -35,7 +35,7 @@ const Weather = ({
   );
 
   return (
-    <div>
+    <div className="App-title">
       {description && <Label>{description}</Label>}
       {cloudLabel}
       {tempLabel}
