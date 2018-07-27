@@ -1,5 +1,9 @@
-.App {
+.App-title {
   text-align: center;
+}
+
+.App-background-title {
+  background-color: lightgray;
 }
 
 .App-logo {
