@@ -16,7 +16,7 @@ class App extends React.Component {
   constructor() {
     super();
     subscribeToJiraConnector();
-    subscribeToWeatherConnector();
+    // subscribeToWeatherConnector();
     subscribeToPush(state => {
       this.setState({
         pushed: state
@@ -58,7 +58,7 @@ class App extends React.Component {
     // search('sprint', 'Cloud - Sprint 59', function (data) {   document.getElementById('search-results').innerHTML = data; });
     // jiraConnector.search('sprint', 'Cloud - Sprint 59', data => { console.log('got data'); this.displayData(data) })
     //jiraConnector.search('status', 'In Development', data => { console.log('got data'); this.displayData(data) })
-    weatherConnector.getDailyForecast(this.setWeather);
+    // weatherConnector.getDailyForecast(this.setWeather);
     jiraConnector.getNew(59, this.addToDo);
     jiraConnector.getReadyForDevelopment(59, this.addToDo);
     jiraConnector.getInDevelopment(59, this.addInProgress);
