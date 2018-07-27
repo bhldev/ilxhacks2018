@@ -42,7 +42,7 @@ client.on('jira-request', function (data) {
         console.log('error:' + error);
       });
   });
-  
+
 });
 const port = 8001;
 io.listen(port);
