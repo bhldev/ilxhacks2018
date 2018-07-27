@@ -22,7 +22,8 @@ class App extends Component {
   getData() {
     console.log('getting data');
     // search('sprint', 'Cloud - Sprint 59', function (data) {   document.getElementById('search-results').innerHTML = data; });
-    jiraConnector.search('sprint', 'Cloud - Sprint 59', data => { console.log('got data'); this.displayData(data) })
+    // jiraConnector.search('sprint', 'Cloud - Sprint 59', data => { console.log('got data'); this.displayData(data) })
+    jiraConnector.search('status', 'In Development', data => { console.log('got data'); this.displayData(data) })
   }
 
   displayData(data) {
@@ -30,6 +31,7 @@ class App extends Component {
   }
   
   render() {
+    this.getData();
     return (
       <div className="App">
         <Header />
