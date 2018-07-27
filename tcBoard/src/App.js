@@ -5,7 +5,7 @@ import Weather from './Weather';
 import Messages from './Messages';
 import StatusList from './StatusList';
 import './App.css';
-import { subscribeToTimer, subscribeToLed, subscribeToPush, subscribeToJiraConnector, jiraConnector } from './api';
+import { subscribeToPush, subscribeToJiraConnector, jiraConnector } from './api';
 //import Iframe from 'react-iframe';
 import { timingSafeEqual } from 'crypto';
 import 'semantic-ui-css/semantic.min.css';
@@ -15,12 +15,17 @@ class App extends Component {
   constructor() {
     super();
     subscribeToJiraConnector();
+    subscribeToPush(state => {
+      this.setState({
+        pushed: state
+      })
+    })
+    this.state = {
+      lightOn: false,
+      pushed: false,
+      timestamp: 'no timestamp yet'
+    }
   }
-  state = {
-    lightOn: false,
-    pushed: false,
-    timestamp: 'no timestamp yet'
-  };
 
   getData() {
     console.log('getting data');
@@ -36,17 +41,21 @@ class App extends Component {
   }
 
   render() {
+    const { pushed } = this.state;
     this.getData();
     return (
       <div className="App">
         <Header className="App-title" />
-        <Body />
+        <Body pushed={pushed} />
       </div>
     );
   }
 }
 
 const Body = (props) => {
+
+  const message = props.pushed ? 'Working Hard' : 'Slacking Off (Hard)';
+
   return (
     <Grid divided='vertically'>
       <Grid.Row columns={2}>
@@ -82,7 +91,7 @@ const Body = (props) => {
 
       <Grid.Row columns={1}>
         <Grid.Column>
-          <Messages message="placeholder" />
+          <Messages message={message} />
         </Grid.Column>
       </Grid.Row>
     </Grid>
