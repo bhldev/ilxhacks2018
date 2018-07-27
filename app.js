@@ -36,7 +36,7 @@ io.on('connection', function (socket) {
     axios.get(data.url, { auth: { username: LOGIN, password: PASSWORD } })
       .then(response => {
         console.log('response:' + circularjson.stringify(response));
-        socket.emit('jira-response', { type: data.type, data: circularjson.stringify(response.data) });
+        socket.emit('jira-response', { type: data.type, data: response.data });
       }).catch(error => {
         console.log('error:' + error);
       });
