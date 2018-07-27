@@ -23,6 +23,7 @@ class App extends React.Component {
       })
     })
     this.state = {
+      time: new Date().toLocaleString(),
       lightOn: false,
       pushed: false,
       timestamp: 'no timestamp yet',
@@ -36,6 +37,20 @@ class App extends React.Component {
 
   componentDidMount = () => {
     this.getData();
+    this.intervalID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
+  tick() {
+    this.setState({
+      time: new Date().toLocaleString()
+    });
   }
 
   getData = () => {
@@ -97,7 +112,7 @@ class App extends React.Component {
 }
 
 const Body = (props) => {
-
+  const time = props.data.time;
   const message = props.pushed ? 'Working Hard' : 'Slacking Off (Hard)';
   const inProgress = props.data && props.data.inProgress;
   const done = props.data && props.data.done;
@@ -114,7 +129,7 @@ const Body = (props) => {
         </Grid.Column>
         <Grid.Column>
           <Segment className="App-segment App-title">
-            {new Date().toLocaleString()}
+            {time}
         </Segment>
         </Grid.Column>
       </Grid.Row>
