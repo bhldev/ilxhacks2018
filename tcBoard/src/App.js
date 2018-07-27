@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react'
-import Header from './Header.js';
+import { Grid, Segment } from 'semantic-ui-react'
+import Header from './Header';
+import Weather from './Weather';
 import './App.css';
 import { subscribeToTimer, subscribeToLed, subscribeToPush, subscribeToJiraConnector, jiraConnector } from './api';
 //import Iframe from 'react-iframe';
@@ -43,9 +44,16 @@ class App extends Component {
 
 const Body = () => (
   <Grid divided='vertically'>
-    <Grid.Row columns={1}>
+    <Grid.Row columns={2}>
       <Grid.Column>
-        1
+        <Segment className="App-segment">
+          <Weather />
+        </Segment>
+      </Grid.Column>
+      <Grid.Column>
+        <Segment className="App-segment">
+          {new Date().toLocaleString()}
+       </Segment>
       </Grid.Column>
     </Grid.Row>
 
