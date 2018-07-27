@@ -11,33 +11,46 @@
 
   /* JIRA FUNCTIONS */
 
+  var funcs = {};
+
   socket.on('jira-response', function (data) {
     console.log(data);
-    var dataStr = JSON.stringify(dataStr);
+    var dataStr = JSON.stringify(data);
     switch (data.type) {
       case 'DASHBOARD':
+        var func = funcs['DASHBOARD'];
         console.log('dashboard:' + dataStr);
+        if (typeof(func) === 'function') { func(); };
+        break;
+      case 'SEARCH':
+        var func = funcs['DASHBOARD'];
+        console.log('search:' + dataStr);
+        if (typeof(func) === 'function') { func(); };
         break;
       default:
         console.log('data:' + dataStr);
     }
   });
 
-  function sendJiraRequest(type, url) {
-    socket.emit('jira-request', { type: type, url: url });
+  function sendJiraRequest(type, url, callback) {
+    socket.emit('jira-request', { type: type, url: encodeURI(url) });
   }
 
   /* API CALLS */
 
   // THIS IS THE EXAMPLE
   // GET URLS FROM 
-  function getDashboard() {
+  function getDashboard(callback) {
+    funcs['DASHBOARD'] = callback;
     sendJiraRequest('DASHBOARD', 'https://intelex.atlassian.net/rest/api/2/dashboard/10116');
   }
   getDashboard();
 
-  function search(key, value) {
-    // TODO
+  function search(key, value, callback) {
+    funcs['SEARCH'] = callback;
+    var url = 'https://intelex.atlassian.net/rest/api/2/search?jql="' + key + '"="' + value + '"';
+    sendJiraRequest('SEARCH', 'https://intelex.atlassian.net/rest/api/2/dashboard/10116');
   }
+  search('summary', 'ampersand');
 
 </script>
