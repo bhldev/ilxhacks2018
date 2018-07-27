@@ -3,12 +3,14 @@ import { Grid } from 'semantic-ui-react'
 import Header from './Header.js';
 import './App.css';
 import { subscribeToTimer, subscribeToLed, subscribeToPush, subscribeToJiraConnector, jiraConnector } from './api';
-import Iframe from 'react-iframe';
+//import Iframe from 'react-iframe';
 import { timingSafeEqual } from 'crypto';
 import 'semantic-ui-css/semantic.min.css';
 
 class App extends Component {
 
+  constructor() {
+    super();
     subscribeToJiraConnector();
   }
   state = {
