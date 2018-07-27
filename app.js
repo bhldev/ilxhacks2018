@@ -3,6 +3,7 @@ var io = require('socket.io')(app);
 var fs = require('fs');
 var axios = require('axios');
 var circularjson = require('circular-json');
+var weather = require('./weather.js');
 
 app.listen(8080);
 
@@ -42,4 +43,9 @@ io.on('connection', function (socket) {
       });
   });
 
+  socket.on('weather-request', function(data) {
+    // weather.getDowntownDailyForecast();
+    var dailyWeatherObj = {};
+    socket.emit('weather-response', dailyWeatherObj);
+  });
 });
