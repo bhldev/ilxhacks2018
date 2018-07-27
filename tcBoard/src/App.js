@@ -30,7 +30,6 @@ class App extends React.Component {
       inProgress: [],
       done: [],
     }
-    }
   }
 
   componentDidMount = () => {
