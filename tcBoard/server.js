@@ -44,11 +44,25 @@ client.on('jira-request', function (data) {
     console.log('request:' + JSON.stringify(data));
     axios.get(data.url, { auth: { username: LOGIN, password: PASSWORD } })
       .then(response => {
-        console.log('response:' + circularjson.stringify(response));
         client.emit('jira-response', { type: data.type, data: response.data });
       }).catch(error => {
         console.log('error:' + error);
       });
+  });
+
+  client.on('weather-request', function () {
+    axios({
+      method: 'get',
+      url: 'http://api.openweathermap.org/data/2.5/weather',
+      params: {
+        id: '6167863',
+        APPID: '34ccb68299a54a6464f86847832c1e32',
+      },
+    }).then(response => {
+      client.emit('weather-response', { data: response.data });
+    }).catch(error => {
+      console.log(error);
+    });
   });
 
 });
