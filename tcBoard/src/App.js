@@ -6,7 +6,7 @@ import Messages from './Messages';
 import StatusList from './StatusList';
 import Chart from './Chart';
 import './App.css';
-import { subscribeToPush, subscribeToJiraConnector, jiraConnector } from './api';
+import { subscribeToPush, subscribeToJiraConnector, jiraConnector, weatherConnector, subscribeToWeatherConnector } from './api';
 //import Iframe from 'react-iframe';
 import { timingSafeEqual } from 'crypto';
 import 'semantic-ui-css/semantic.min.css';
@@ -16,6 +16,7 @@ class App extends React.Component {
   constructor() {
     super();
     subscribeToJiraConnector();
+    subscribeToWeatherConnector();
     subscribeToPush(state => {
       this.setState({
         pushed: state
@@ -29,6 +30,7 @@ class App extends React.Component {
       todo: [],
       inProgress: [],
       done: [],
+      weather: null,
     }
   }
 
@@ -41,6 +43,7 @@ class App extends React.Component {
     // search('sprint', 'Cloud - Sprint 59', function (data) {   document.getElementById('search-results').innerHTML = data; });
     // jiraConnector.search('sprint', 'Cloud - Sprint 59', data => { console.log('got data'); this.displayData(data) })
     //jiraConnector.search('status', 'In Development', data => { console.log('got data'); this.displayData(data) })
+    weatherConnector.getDailyForecast(this.setWeather);
     jiraConnector.getNew(59, this.addToDo);
     jiraConnector.getReadyForDevelopment(59, this.addToDo);
     jiraConnector.getInDevelopment(59, this.addInProgress);
@@ -77,6 +80,12 @@ class App extends React.Component {
     }
   }
 
+  setWeather = (data) => {
+    if (!!data && data.data) {
+      this.setState({ weather: data.data });
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -93,12 +102,14 @@ const Body = (props) => {
   const inProgress = props.data && props.data.inProgress;
   const done = props.data && props.data.done;
   const todo = props.data && props.data.todo;
+  const weather = props.data && props.data.weather;
+
   return (
     <Grid divided='vertically'>
       <Grid.Row columns={2}>
         <Grid.Column>
           <Segment className="App-segment">
-            <Weather />
+            <Weather weatherData={weather} />
           </Segment>
         </Grid.Column>
         <Grid.Column>

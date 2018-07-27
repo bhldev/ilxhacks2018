@@ -27,13 +27,21 @@ export function subscribeToPush(pb) {
     funcs: {},
   };
 
+export const weatherConnector = {
+  getDailyForecast: getDailyForecast,
+  func: null,
+}
+
   export function subscribeToJiraConnector(){
     socket.on('jira-response', function (data) {
-      console.log(data);
-      var dataStr = JSON.stringify(data);
-      console.log(data.type.toLowerCase() + dataStr);
       var func = jiraConnector.funcs[data.type.toUpperCase()];
       if (typeof(func) === 'function') { func(data); };
+    });
+  }
+
+  export function subscribeToWeatherConnector(){
+    socket.on('weather-response', function (data) {
+      weatherConnector.func(data);
     });
   }
 
@@ -57,6 +65,11 @@ export function subscribeToPush(pb) {
   export function getNew(sprint, callback) {
     jiraConnector.funcs['NEW'] = callback;
     sendJiraRequest('NEW', getUrl2('Status', 'New', 'Sprint', 'Cloud - Sprint ' + sprint));
+  }
+
+  export function getDailyForecast(callback) {
+    weatherConnector.func = callback;
+    socket.emit('weather-request');
   }
 
   export function getReadyForDevelopment(sprint, callback) {
