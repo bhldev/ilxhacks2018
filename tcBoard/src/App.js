@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment } from 'semantic-ui-react'
+import { Grid, Segment, Label } from 'semantic-ui-react'
 import Header from './Header';
 import Weather from './Weather';
 import Messages from './Messages';
@@ -128,8 +128,10 @@ const Body = (props) => {
           </Segment>
         </Grid.Column>
         <Grid.Column>
-          <Segment className="App-segment App-title">
+          <Segment>
+         <Label as="a" className="App-title" size="large" basic > 
             {time}
+         </Label> 
         </Segment>
         </Grid.Column>
       </Grid.Row>
